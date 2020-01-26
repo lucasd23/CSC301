@@ -60,7 +60,6 @@ $tenants=[
       echo '<hr>';
     }
     ?>
-    <p>git test</p>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
