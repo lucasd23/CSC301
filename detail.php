@@ -49,6 +49,7 @@ $tenants=[
   </head>
   <body>
     <div class="container">
+    <a href="/csc301/index.php" ><-Go Back</a>
     <h1><?= $tenants[$_GET['id']]['first'].' '.$tenants[$_GET['id']]['last'] ?></h1>
     <img src="<?= $tenants[$_GET['id']]['picture'] ?>" style="max-width:500px"/>
     <p>Apartment Number: <?= $tenants[$_GET['id']]['aptNum'] ?></p>
