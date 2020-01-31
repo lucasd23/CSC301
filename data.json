@@ -1,0 +1,27 @@
+[
+    {
+        "first":"Dillon",
+        "last":"Lucas",
+        "picture":"https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-0/c0.0.640.640a/p640x640/72438049_10156761434718284_5237003037335093248_n.jpg?_nc_cat=107&amp;_nc_oc=AQkh9Xq9anB7JAC84JBRpuPk4O6A25cw3uQskBGwNPKG7YcJmU1lQIajZDw6AEyEoYA&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=9c04df335e0564ca2044de694ae00566&amp;oe=5ED1BC8E",
+        "aptNum":"428",
+        "rent":995.00,
+        "latePayments":0
+    },
+    {
+        "first":"Ethan",
+        "last":"Howard",
+        "picture":"https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-1/c0.445.902.902a/73145412_421797671837522_7977558666037428224_o.jpg?_nc_cat=104&amp;_nc_oc=AQlpVBJQHNnKPri_WowFZNQmGzrzuhI0VwAYzAymDGoqa8JIBpMBD5D2r42yTLQixWk&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=01476bf2754b2504e93185ef9a1564c1&amp;oe=5ECDC482",
+        "aptNum":"123",
+        "rent":1200.00,
+        "latePayments":4
+    },
+    {
+        "first":"Justin",
+        "last":"Lucas",
+        "picture":"https://i1.sndcdn.com/avatars-000660764021-idl7o3-t500x500.jpg",
+        "aptNum":"986",
+        "rent":699.50,
+        "latePayments":10
+    }
+]   
+    
