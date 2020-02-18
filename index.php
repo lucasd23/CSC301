@@ -34,6 +34,7 @@ $tenants=json_decode($json_string, true);
       echo '<hr>';
     }
     ?>
+    <p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>
     </div>
       
     <!-- Optional JavaScript -->
