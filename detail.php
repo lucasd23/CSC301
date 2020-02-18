@@ -1,12 +1,12 @@
 <?php
 if(!isset($_GET['id'])){
-    die('No id, go back to the <a href="index.php">Hotels Page</a>');
+    die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
 $json_string = file_get_contents('data.json');
 $tenants=json_decode($json_string, true);
    
     if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($tenants)){
-        die('Invalid, go back to the <a href="index.php">Hotels Page</a>');
+        die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
     }
 
 ?>
@@ -39,6 +39,8 @@ $tenants=json_decode($json_string, true);
     else{
         echo '<span class="badge badge-danger">'.$tenants[$_GET['id']]['latePayments'].'</span>';
     }
+    echo '<p><a href="modify.php?id='.$_GET['id'].'">Edit</a></p>';
+    echo '<p><a href="delete.php?id='.$_GET['id'].'" style="color:red">Delete</a></p>'
     ?> </p>
     
     
