@@ -38,11 +38,7 @@ $tenants=json_decode($json_string, true);
       echo '<hr>';
     }
     ?>
-<<<<<<< HEAD
     <?php if(isset($_SESSION['id'])) echo '<p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>' ?>
-=======
-    <p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>
->>>>>>> 9cd178de3675b8d7ea323416c9a9778100042c24
     </div>
       
     <!-- Optional JavaScript -->
