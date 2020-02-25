@@ -1,4 +1,6 @@
 <?php
+session_start();
+if(!isset($_SESSION['id'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
     require_once('JSONutility.php');

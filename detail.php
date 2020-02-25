@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
@@ -39,8 +40,8 @@ $tenants=json_decode($json_string, true);
     else{
         echo '<span class="badge badge-danger">'.$tenants[$_GET['id']]['latePayments'].'</span>';
     }
-    echo '<p><a href="modify.php?id='.$_GET['id'].'">Edit</a></p>';
-    echo '<p><a href="delete.php?id='.$_GET['id'].'" style="color:red">Delete</a></p>'
+    if(isset($_SESSION['id'])) echo '<p><a href="modify.php?id='.$_GET['id'].'">Edit</a></p>';
+    if(isset($_SESSION['id'])) echo '<p><a href="delete.php?id='.$_GET['id'].'" style="color:red">Delete</a></p>'
     ?> </p>
     
     

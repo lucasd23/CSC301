@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $json_string = file_get_contents('data.json');
 $tenants=json_decode($json_string, true);
 ?>
@@ -19,6 +19,10 @@ $tenants=json_decode($json_string, true);
   </head>
   <body>
     <div class="container">
+    <?php
+    if(isset($_SESSION['id'])) echo '<a href="/csc301/signOut.php" >SIGN OUT</a>';
+    else echo '<a href="/csc301/signIn.php" >SIGN IN</a> OR <a href="/csc301/signUp.php" >SIGN UP</a>';
+    ?>
     <h1>All Tenants</h1>
     <?php
     for ($i=0;$i<count($tenants);$i++){
@@ -34,7 +38,7 @@ $tenants=json_decode($json_string, true);
       echo '<hr>';
     }
     ?>
-    <p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>
+    <?php if(isset($_SESSION['id'])) echo '<p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>' ?>
     </div>
       
     <!-- Optional JavaScript -->
