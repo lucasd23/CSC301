@@ -1,5 +1,5 @@
 <?php
-echo '<pre>';
+
 //writeJSON('newjson.json',
 	//[['firstname'=>'Paul','lastname'=>'McCartney']]);
 //print_r(json_decode(file_get_contents('newjson.json'),true));
