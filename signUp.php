@@ -1,17 +1,9 @@
 <?php
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
-    require_once('CSVutility.php');
-    $_POST['email']=strtolower($_POST['email']);
-    $_POST['password']=password_hash($_POST['password'], PASSWORD_BCRYPT);
-    if (!file_exists('userAccounts.csv')) writeCSV('userAccounts.csv', $_POST);
-    else{
-        for ($index=0;readCSV('userAccounts.csv',$index) != null;$index++){
-            $line = readCSV('userAccounts.csv',$index);
-            if ($line[0] == $_POST['email']) die('This email is already associated with an account');
-        }
-        writeCSV('userAccounts.csv', $_POST);
-    }
+    require_once('userOps.php');
+    $userOps=new userOps;
+    $userOps->signUp();
 }
 
 ?>

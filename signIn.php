@@ -4,24 +4,9 @@ session_start();
 if(isset($_SESSION['id'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
-    require_once('CSVutility.php');
-    if (!file_exists('userAccounts.csv')) die('This email is not associated with an account');
-    else{
-        $_POST['email']=strtolower($_POST['email']);
-        $verified=false;
-        for ($index=0;readCSV('userAccounts.csv',$index) != null && $verified==false;$index++){
-            $line = readCSV('userAccounts.csv',$index);
-            if ($line[0] == $_POST['email']){
-                $verified = true;
-                if (!password_verify(trim($_POST['password']), trim($line[1]))) die('Incorrect Password'.var_dump($line[1]));
-                $_SESSION['id'] = 1;
-                header('Location: index.php');
-
-            }
-             
-        }
-        die('This email is not associated with an account');
-    }
+    require_once('userOps.php');
+    $userOps=new userOps;
+    $userOps->signIn();
 }
 
 ?>

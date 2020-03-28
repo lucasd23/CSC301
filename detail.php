@@ -3,9 +3,10 @@ session_start();
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
-$json_string = file_get_contents('data.json');
-$tenants=json_decode($json_string, true);
-   
+require_once('FileUtility.php');
+require_once('tenant.php');
+$tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
+
     if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($tenants)){
         die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
     }
@@ -21,28 +22,15 @@ $tenants=json_decode($json_string, true);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title><?= $tenants[$_GET['id']]['first'].' '.$tenants[$_GET['id']]['last'] ?></title>
+    <title><?= $tenants['first'].' '.$tenants['last'] ?></title>
   </head>
   <body>
     <div class="container">
     <a href="/csc301/index.php" ><-Go Back</a>
-    <h1><?= $tenants[$_GET['id']]['first'].' '.$tenants[$_GET['id']]['last'] ?></h1>
-    <img src="<?= $tenants[$_GET['id']]['picture'] ?>" style="max-width:500px"/>
-    <p>Apartment Number: <?= $tenants[$_GET['id']]['aptNum'] ?></p>
-    <p> Rent: $<?= $tenants[$_GET['id']]['rent'] ?></p>
-    <p>Late Payments: <?php
-    if($tenants[$_GET['id']]['latePayments'] < 2){
-        echo '<span class="badge badge-success">'.$tenants[$_GET['id']]['latePayments'].'</span>';
-    }
-    elseif($tenants[$_GET['id']]['latePayments'] < 7){
-        echo '<span class="badge badge-warning">'.$tenants[$_GET['id']]['latePayments'].'</span>';
-    }
-    else{
-        echo '<span class="badge badge-danger">'.$tenants[$_GET['id']]['latePayments'].'</span>';
-    }
-    if(isset($_SESSION['id'])) echo '<p><a href="modify.php?id='.$_GET['id'].'">Edit</a></p>';
-    if(isset($_SESSION['id'])) echo '<p><a href="delete.php?id='.$_GET['id'].'" style="color:red">Delete</a></p>'
-    ?> </p>
+    <?php
+    $tenant=new Tenant;
+    $tenant->showDetail($_GET['id']);
+    ?>
     
     
     </div>

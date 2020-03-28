@@ -1,7 +1,10 @@
 <?php
 session_start();
-$json_string = file_get_contents('data.json');
-$tenants=json_decode($json_string, true);
+require_once('FileUtility.php');
+require_once('tenant.php');
+//$json_string = file_get_contents('data.json');
+//$tenants=json_decode($json_string, true);
+$tenants=FileUtility::readJSON('tenants.json');
 require_once("header.php");
 ?>
 
@@ -15,17 +18,12 @@ require_once("header.php");
     ?>
     <h1>All Tenants</h1>
     <?php
-    for ($i=0;$i<count($tenants);$i++){
+    $id=0;
+    foreach ($tenants as $one){
         
-        echo '<div class="media">
-        <img src="'.$tenants[$i]['picture'].'" class="mr-3"  alt="..." style="max-width:96px">
-        <div class="media-body">
-          <h5 class="mt-0">'.$tenants[$i]['first'].' '.$tenants[$i]['last'].'</h5>
-          <p>Apt. '.$tenants[$i]['aptNum'].'</p>
-          <p><a href="detail.php?id='.$i.'">Click to see details</a></p>
-        </div>
-      </div>';
-      echo '<hr>';
+      $tenant=new Tenant;
+      echo $tenant->showPreview($one,$id);
+      $id++;
     }
     ?>
     <?php if(isset($_SESSION['id'])) echo '<p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>' ?>
