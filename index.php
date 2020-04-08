@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('FileUtility.php');
-require_once('tenant.php');
+require_once('tenantDB.php');
 //$json_string = file_get_contents('data.json');
 //$tenants=json_decode($json_string, true);
 $tenants=FileUtility::readJSON('tenants.json');
@@ -19,12 +19,8 @@ require_once("header.php");
     <h1>All Tenants</h1>
     <?php
     $id=0;
-    foreach ($tenants as $one){
-        
-      $tenant=new Tenant;
-      echo $tenant->showPreview($one,$id);
-      $id++;
-    }
+    $tenant = new tenantDB;
+    $tenant->showPreview();
     ?>
     <?php if(isset($_SESSION['id'])) echo '<p><h4><a href="create.php" style="color:green">Create New Tenant</a></h4></p>' ?>
     </div>

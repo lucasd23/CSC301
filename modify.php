@@ -1,11 +1,11 @@
 <?php
 session_start();
 require_once('FileUtility.php');
-require_once('tenant.php');
+require_once('tenantDB.php');
 if(!isset($_SESSION['id'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
-    $tenant=new Tenant;
+    $tenant=new tenantDB;
     $tenant->processEditForm($_GET['id']);
 }
 
@@ -32,7 +32,7 @@ $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title><?= $tenants['first'].' '.$tenants['last'] ?></title>
+    <title>Edit</title>
 </head>
 
 <body>
@@ -40,7 +40,7 @@ $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
         <?= '<p><a href="detail.php?id='.$_GET['id'].'"><-Go Back</a></p>'?>
         <h1>Edit Tenant</h1>
         <?php
-            $tenant=new Tenant;
+            $tenant=new tenantDB;
             $tenant->showEditForm($_GET['id']);
         ?>
     </div>

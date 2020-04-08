@@ -1,9 +1,10 @@
 <?php
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
-    require_once('userOps.php');
-    $userOps=new userOps;
-    $userOps->signUp();
+    require_once('userAccountsDB.php');
+    $userOps=new userAccount;
+    $userOps->signUp('useraccounts', $_POST);
+    
 }
 
 ?>

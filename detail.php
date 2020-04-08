@@ -4,7 +4,7 @@ if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
 require_once('FileUtility.php');
-require_once('tenant.php');
+require_once('tenantDB.php');
 $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
 
     if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($tenants)){
@@ -22,13 +22,13 @@ $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title><?= $tenants['first'].' '.$tenants['last'] ?></title>
+    <title>Details</title>
   </head>
   <body>
     <div class="container">
     <a href="/csc301/index.php" ><-Go Back</a>
     <?php
-    $tenant=new Tenant;
+    $tenant=new tenantDB;
     $tenant->showDetail($_GET['id']);
     ?>
     
