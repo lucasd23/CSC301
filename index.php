@@ -1,5 +1,6 @@
 <?php
 session_start();
+if(!isset($_SESSION['id'])) header('LOCATION:signIn.php');
 require_once('FileUtility.php');
 require_once('tenantDB.php');
 //$json_string = file_get_contents('data.json');
@@ -13,7 +14,11 @@ require_once("header.php");
   
     <div class="container">
     <?php
-    if(isset($_SESSION['id'])) echo '<a href="/csc301/signOut.php" >SIGN OUT</a>';
+    if(isset($_SESSION['id'])) {
+      
+      if($_SESSION['id'] == 'admin') echo '<a href="/csc301/admin.php" style="color:red">ADMIN</a><br>';
+      echo '<a href="/csc301/signOut.php" >SIGN OUT</a>';
+    }
     else echo '<a href="/csc301/signIn.php" >SIGN IN</a> OR <a href="/csc301/signUp.php" >SIGN UP</a>';
     ?>
     <h1>All Tenants</h1>

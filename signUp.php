@@ -4,7 +4,7 @@ else {
     require_once('userAccountsDB.php');
     $userOps=new userAccount;
     $userOps->signUp('useraccounts', $_POST);
-    
+
 }
 
 ?>
@@ -29,6 +29,8 @@ else {
     Email: <input name="email" type="email" required><br><br>
     Password: <input name="password" type="password" required><br><br>
     <button type="submit">Sign Up</button>
+  </form> <hr> 
+  Already have an account? <a href='signIn.php'><button>Sign In</button></a>
 </form>
     </div>
       

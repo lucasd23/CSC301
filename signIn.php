@@ -31,7 +31,8 @@ else {
     Email: <input name="email" type="email" required><br><br>
     Password: <input name="password" type="password" required><br><br>
     <button type="submit">Sign In</button>
-</form>
+</form><hr> 
+  Don't have an account? <a href='signUp.php'><button>Sign Up</button></a>
     </div>
       
     <!-- Optional JavaScript -->
