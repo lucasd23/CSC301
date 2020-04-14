@@ -83,8 +83,8 @@ class Tenant {
     else{
         echo '<span class="badge badge-danger">'.$tenant['latePayments'].'</span>';
     }
-    if(isset($_SESSION['id'])) echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
-    if(isset($_SESSION['id'])) echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
+    if(isset($_SESSION['uid'])) echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
+    if(isset($_SESSION['uid'])) echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
     ?> </p>
     <?php
     }

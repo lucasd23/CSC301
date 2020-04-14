@@ -1,13 +1,12 @@
 <?php
+session_name('signIn');
 session_start();
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
-require_once('FileUtility.php');
 require_once('tenantDB.php');
-$tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
 
-    if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($tenants)){
+    if(!is_numeric($_GET['id']) || $_GET['id']<0){
         die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
     }
 

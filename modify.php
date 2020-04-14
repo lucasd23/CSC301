@@ -1,8 +1,9 @@
 <?php
+session_name('signIn');
 session_start();
 require_once('FileUtility.php');
 require_once('tenantDB.php');
-if(!isset($_SESSION['id'])) header('Location: index.php');
+if(!isset($_SESSION['uid'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
     $tenant=new tenantDB;
@@ -14,7 +15,7 @@ if(!isset($_GET['id'])){
 };
 $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
    
-    if(!is_numeric($_GET['id']) || $_GET['id']<0 || $_GET['id']>=count($tenants)){
+    if(!is_numeric($_GET['id']) || $_GET['id']<0){
         die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
     }
 

@@ -1,6 +1,7 @@
 <?php
+session_name('signIn');
 session_start();
-if(!isset($_SESSION['id'])) header('Location: index.php');
+if(!isset($_SESSION['uid'])) header('Location: index.php');
 require_once('tenantDB.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {

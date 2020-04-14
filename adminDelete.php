@@ -1,7 +1,8 @@
 <?php
+session_name('signIn');
 session_start();
-if(!isset($_SESSION['id'])) header('LOCATION:signIn.php');
-if($_SESSION['id'] != 'admin') header('Location: index.php');
+if(!isset($_SESSION['uid'])) header('LOCATION:signIn.php');
+if($_SESSION['uid'] != 'admin') header('Location: index.php');
 
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="admin.php">Admin Page</a>');

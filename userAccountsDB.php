@@ -38,8 +38,8 @@ class userAccount {
             if ($_POST['password'] != $result['password']) print('Incorrect Password'.$result['password']);
             else{ 
                 $id = explode('@', $_POST['email']);
-                $_SESSION['id'] = $id[0];
-                if($_SESSION['id'] == 'admin') header('Location: admin.php');
+                $_SESSION['uid'] = $id[0];
+                if($_SESSION['uid'] == 'admin') header('Location: admin.php');
                 else header('Location: index.php');
             }
 

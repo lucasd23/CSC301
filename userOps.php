@@ -11,7 +11,7 @@ class userOps {
                 if ($line[0] == $_POST['email']){
                     $verified = true;
                     if (!password_verify(trim($_POST['password']), trim($line[1]))) die('Incorrect Password'.var_dump($line[1]));
-                    $_SESSION['id'] = 1;
+                    $_SESSION['uid'] = 1;
                     header('Location: index.php');
 
                 }

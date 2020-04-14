@@ -68,8 +68,9 @@ class tenantDB {
         if ($_POST['dateOut'] != NULL) $_POST['dateOut'] = '"'.$_POST['dateOut'].'"';
         else $_POST['dateOut'] = 'NULL';
 
-        $sql = 'INSERT INTO tenant ('.$columns.') 
-        VALUES ("'.$_POST['first'].'", "'.$_POST['last'].'", "'.$_POST['picture'].'", "'.$_POST['aptNum'].'", '.$_POST['rent'].', '.$_POST['latePayments'].', '.$_POST['dateIn'].', '.$_POST['dateOut'].');';
+       
+        $sql = 'INSERT INTO tenant ('.$columns.', createdBy) 
+        VALUES ("'.$_POST['first'].'", "'.$_POST['last'].'", "'.$_POST['picture'].'", "'.$_POST['aptNum'].'", '.$_POST['rent'].', '.$_POST['latePayments'].', '.$_POST['dateIn'].', '.$_POST['dateOut'].', "'.$_SESSION['uid'].'");';
 
         $this->pdo->query($sql);
     }
@@ -144,8 +145,8 @@ class tenantDB {
         else{
             echo '<span class="badge badge-danger">'.$tenant['latePayments'].'</span>';
         }
-        if(isset($_SESSION['id'])) echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
-        if(isset($_SESSION['id'])) echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
+        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin') echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
+        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin') echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
         ?> </p>
         <?php
     }
