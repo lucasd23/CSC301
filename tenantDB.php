@@ -145,8 +145,8 @@ class tenantDB {
         else{
             echo '<span class="badge badge-danger">'.$tenant['latePayments'].'</span>';
         }
-        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin') echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
-        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin') echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
+        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin' || $_SESSION['uid'] == 'manager') echo '<p><a href="modify.php?id='.$id.'">Edit</a></p>';
+        if($_SESSION['uid'] == $tenant['createdBy'] || $_SESSION['uid'] == 'admin' || $_SESSION['uid'] == 'manager') echo '<p><a href="delete.php?id='.$id.'" style="color:red">Delete</a></p>'
         ?> </p>
         <?php
     }
