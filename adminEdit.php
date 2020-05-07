@@ -1,7 +1,6 @@
 <?php
 session_name('signIn');
 session_start();
-require_once('FileUtility.php');
 require_once('userAccountsDB.php');
 if(!isset($_SESSION['uid'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
@@ -11,11 +10,11 @@ else {
 }
 
 if(!isset($_GET['id'])){
-    die('No id, go back to the <a href="index.php">Tenants Page</a>');
+    die('No id, go back to the <a href="admin.php">Admin Page</a>');
 };
    
     if(!is_string($_GET['id']) || $_GET['id']<0){
-        die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
+        die('Invalid, go back to the <a href="admin.php">Admin Page</a>');
     }
 
 
@@ -34,7 +33,7 @@ if(!isset($_GET['id'])){
 
     <title>Edit</title>
 </head>
-
+<?php require_once('navbar.php') ?>
 <body>
     <div class="container">
         <?= '<p><a href="admin.php"><-Go Back</a></p>'?>

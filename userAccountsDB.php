@@ -29,13 +29,13 @@ class userAccount {
     public function signIn(){
         $this->create();
         try{
-            $result = $this->pdo->query('SELECT * FROM useraccounts WHERE email="'.$_POST['email'].'"');
+            $result = $this->pdo->prepare('SELECT * FROM useraccounts WHERE email=?');
+            $result->execute([$_POST['email']]);
             if ($result->rowCount() < 1) throw new PDOException('no results');
-            $result = $result->fetch();
+            $result = $result->fetch(PDO::FETCH_ASSOC);
 
             $_POST['email']=strtolower($_POST['email']);
-            //if (!password_verify(trim('dang'), trim('$2y$10$Oe0JvaH36pNLrKUTIvYAW.RQy'))) print('Incorrect Password'.$result['password']);
-            if ($_POST['password'] != $result['password']) print('Incorrect Password'.$result['password']);
+            if ($_POST['password'] != $result['password']) echo '<script>alert("Incorrect Password")</script>';
             else{ 
                 $id = explode('@', $_POST['email']);
                 $_SESSION['uid'] = $id[0];
@@ -47,27 +47,34 @@ class userAccount {
              
             
         } catch(PDOException $e) {
-            print("This email is not associated with an account.");
+            echo '<script>alert("This email is not associated with an account.")</script>';
         }
     }
-    //read
-    //write
+    
     public function signUp($table, $data) {
         $user = explode('@', $data['email']);
         if ($user[0] == 'admin') {
-            print("This email is already associated with an account.");
+            echo '<script>alert("This email is already associated with an account.")</script>';
             return;
         }
         $this->create();
         $data['email']=strtolower($_POST['email']);
         //$data['password']=password_hash($data['password'], PASSWORD_BCRYPT);
-        $sql = 'INSERT INTO '.$table.' VALUES ("'.$data['email'].'", "'.$data['password'].'");';
+        $sql = 'INSERT INTO '.$table.' VALUES (?, ?);';
         try {
-            $this->pdo->query($sql);
+            $insert = $this->pdo->prepare($sql);
+            $insert->execute([$data['email'], $data['password']]);
+            header('Location: signIn.php');
 
         } catch(PDOException $e){
-            print("This email is already associated with an account.");
+            echo '<script>alert("This email is already associated with an account.")</script>';
         }
+    }
+
+    public function signOut(){
+        session_destroy();
+        header('location: index.php');
+        
     }
     
     public function showPreview(){
@@ -93,15 +100,17 @@ class userAccount {
     public function delete($email){
         $this->create();
         $sql = 'DELETE FROM useraccounts 
-        WHERE email="'.$email.'";';
+        WHERE email=?;';
 
-        $this->pdo->query($sql);
+        $delete = $this->pdo->prepare($sql);
+        $delete->execute([$email]);
     }
 
     public function showEditForm($id){
         $this->create();
-        $results = $this->pdo->query('SELECT * FROM useraccounts WHERE email="'.$id.'"');
-        $user=$results->fetch();        ?>
+        $results = $this->pdo->prepare('SELECT * FROM useraccounts WHERE email=?');
+        $results->execute([$id]);
+        $user=$results->fetch(PDO::FETCH_ASSOC);        ?>
         <form action="adminEdit.php?id=<?=$_GET['id']?>" method="POST">
         Email: <input name="email" type="email" value="<?= $user['email'] ?>" required><br><br>
         Password: <input name="password" type="password" value="<?= $user['password'] ?>" required><br><br>
@@ -114,10 +123,12 @@ class userAccount {
         $this->create();
 
         $sql = 'UPDATE useraccounts 
-        SET email="'.$_POST['email'].'", password="'.$_POST['password'].'"
-        WHERE email="'.$id.'";';
+        SET email=?, password=?
+        WHERE email=?;';
 
-        $this->pdo->query($sql);
+        $process = $this->pdo->prepare($sql);
+        $process->execute([$_POST['email'], $_POST['password'], $id]);
+        header('Location: admin.php');
     }
 }
 

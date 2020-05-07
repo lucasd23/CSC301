@@ -31,9 +31,9 @@ else {
 <form action="signIn.php" method="POST">
     Email: <input name="email" type="email" required><br><br>
     Password: <input name="password" type="password" required><br><br>
-    <button type="submit">Sign In</button>
+    <button type="submit" role="button" class="btn btn-primary">Sign In</button>
 </form><hr> 
-  Don't have an account? <a href='signUp.php'><button>Sign Up</button></a>
+  Don't have an account? <a href='signUp.php'><button role="button" class="btn btn-secondary">Sign Up</button></a>
     </div>
       
     <!-- Optional JavaScript -->

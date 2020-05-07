@@ -5,7 +5,6 @@ if(!isset($_SESSION['uid'])) header('Location: index.php');
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
-require_once('FileUtility.php');
 require_once('tenantDB.php');
 if(!is_numeric($_GET['id']) || $_GET['id']<0){
     die('Invalid, go back to the <a href="index.php">Hotels Page</a>');

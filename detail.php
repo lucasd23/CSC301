@@ -1,6 +1,7 @@
 <?php
 session_name('signIn');
 session_start();
+if(!isset($_SESSION['uid'])) header('Location: index.php');
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Tenants Page</a>');
 };
@@ -23,6 +24,8 @@ require_once('tenantDB.php');
 
     <title>Details</title>
   </head>
+  <?php require_once('navbar.php');?>
+
   <body>
     <div class="container">
     <a href="/csc301/index.php" ><-Go Back</a>

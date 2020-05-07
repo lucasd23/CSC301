@@ -10,4 +10,5 @@
 
     <title>All Tenants</title>
   </head>
+  <?php require_once('navbar.php');?>
   <body>

@@ -1,19 +1,18 @@
 <?php
 session_name('signIn');
 session_start();
-require_once('FileUtility.php');
 require_once('tenantDB.php');
 if(!isset($_SESSION['uid'])) header('Location: index.php');
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
     $tenant=new tenantDB;
     $tenant->processEditForm($_GET['id']);
+    header('Location:detail.php?id='.$_GET['id'].'');
 }
 
 if(!isset($_GET['id'])){
     die('No id, go back to the <a href="index.php">Hotels Page</a>');
 };
-$tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
    
     if(!is_numeric($_GET['id']) || $_GET['id']<0){
         die('Invalid, go back to the <a href="index.php">Tenants Page</a>');
@@ -35,7 +34,7 @@ $tenants=FileUtility::readJSON('tenants.json',$_GET['id']);
 
     <title>Edit</title>
 </head>
-
+<?php require_once('navbar.php');?>
 <body>
     <div class="container">
         <?= '<p><a href="detail.php?id='.$_GET['id'].'"><-Go Back</a></p>'?>

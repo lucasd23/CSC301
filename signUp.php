@@ -1,4 +1,6 @@
 <?php
+session_name('signIn');
+session_start();
 if (!isset($_SERVER['CONTENT_LENGTH'])){}
 else {
     require_once('userAccountsDB.php');
@@ -22,15 +24,16 @@ else {
 
     <title>Sign Up</title>
   </head>
+  <?php if(isset($_SESSION['uid']) && $_SESSION['uid'] == 'admin') require_once('navbar.php'); ?>
   <body>
     <div class="container">
     <h1>Create an Account</h1>
 <form action="signUp.php" method="POST">
     Email: <input name="email" type="email" required><br><br>
     Password: <input name="password" type="password" required><br><br>
-    <button type="submit">Sign Up</button>
+    <button type="submit" role="button" class="btn btn-primary"><?php if(!isset($_SESSION['uid']) || $_SESSION['uid'] != 'admin') echo 'Sign Up'; else echo 'Create Account'?></button>
   </form> <hr> 
-  Already have an account? <a href='signIn.php'><button>Sign In</button></a>
+  <?php if(!isset($_SESSION['uid']) || $_SESSION['uid'] != 'admin') echo 'Already have an account? <a href="signIn.php" role="button" class="btn btn-secondary">Sign In</a>'; ?>
 </form>
     </div>
       

@@ -11,8 +11,10 @@ else {
 }
 require_once('header.php');
 ?>
-<h1>Create Tenant</h1>
-<?php $tenant=new tenantDB;
-$tenant->showCreateForm();
-?>
+<div class="container">
+    <h1>Create Tenant</h1>
+    <?php $tenant=new tenantDB;
+    $tenant->showCreateForm();
+    ?>
+</div>
 <?php require_once("footer.php")?>
