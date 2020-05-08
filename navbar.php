@@ -14,6 +14,11 @@
         <?php if($_SESSION['uid'] == 'admin') echo '<li class="nav-item">
         <a  href="admin.php" role="button" class="btn btn-outline-danger">Admin</a>' ?>
       </li>
+      <li class="nav-item" style="padding-right: 15px"></li>
+      <li class="nav-item active">
+        <?php if($_SESSION['uid'] == 'admin') echo '<li class="nav-item">
+        <a  href="adminApts.php" role="button" class="btn btn-outline-info">Apartments</a>' ?>
+      </li>
     </ul>
     <?php if(isset($_SESSION['uid'])) {
       echo '<a href="/csc301/signOut.php" role="button" class="btn btn-light">SIGN OUT</a>';

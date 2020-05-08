@@ -63,6 +63,14 @@ class tenantDB {
 
     public function processCreateForm(){
         $this->create();
+        try{
+            $result = $this->pdo->query('SELECT * FROM apartment WHERE aptNum="'.$_POST['aptNum'].'"');
+            if ($result->rowCount() < 1) throw new PDOException('no results');
+        }catch(PDOException $e) {
+            echo '<script>alert("This apartment does not exist.")</script>';
+            header('Refresh:0');
+            die();
+        }
         $columns = implode(',', array_keys($_POST));
         if ($_POST['dateIn'] != NULL) $_POST['dateIn'] = $_POST['dateIn'];
         else $_POST['dateIn'] = date('Y-m-d');
@@ -76,6 +84,11 @@ class tenantDB {
 
         $insert = $this->pdo->prepare($sql);
         $insert->execute(array($_POST['first'], $_POST['last'], $_POST['picture'], $_POST['aptNum'], $_POST['rent'], $_POST['latePayments'], $_POST['dateIn'], $_POST['dateOut'], $_SESSION['uid']));
+        $aptTenantCount = $this->pdo->query('SELECT COUNT(*) as count FROM tenant WHERE aptNum = "'.$_POST['aptNum'].'"');
+        $count = $aptTenantCount->fetch();
+        $setNumTenants = $this->pdo->prepare('UPDATE apartment
+        SET numTenants='.$count['count'].' WHERE aptNum=:aptNum;');
+        $setNumTenants->execute([':aptNum'=>$_POST['aptNum']]);
     }
 
     public function showEditForm($id){
@@ -99,17 +112,36 @@ class tenantDB {
 
     public function processEditForm($id){
         $this->create();
-        $columns = implode(',', array_keys($_POST));
+        try{
+            $result = $this->pdo->query('SELECT * FROM apartment WHERE aptNum="'.$_POST['aptNum'].'"');
+            if ($result->rowCount() < 1) throw new PDOException('no results');
+        }catch(PDOException $e) {
+            echo '<script>alert("This apartment does not exist.")</script>';
+            header('Refresh:0');
+            die();
+        }
         if ($_POST['dateIn'] != NULL) $_POST['dateIn'] = $_POST['dateIn'];
         else $_POST['dateIn'] = date('Y-m-d');
 
         if ($_POST['dateOut'] != NULL) $_POST['dateOut'] = $_POST['dateOut'];
         else $_POST['dateOut'] = 'NULL';
 
+        $aptRemTenantCount = $this->pdo->query('SELECT aptNum, COUNT(*) as count FROM tenant WHERE aptNum = (SELECT aptNum FROM tenant WHERE tenantID = '.$id.');');
+        $info = $aptRemTenantCount->fetch();
+        $count = $info['count']-1;
+        $setNumTenants = $this->pdo->prepare('UPDATE apartment
+        SET numTenants='.$count.' WHERE aptNum=:aptNum;');
+        $setNumTenants->execute([':aptNum'=>$info['aptNum']]);
+
         $sql = $this->pdo->prepare('UPDATE tenant 
         SET first=:first, last=:last, picture=:picture, aptNum=:aptNum, rent=:rent, latePayments=:latePayments, dateIn=:dateIn, dateOut=:dateOut
         WHERE tenantID=:id;', array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $sql->execute(array(':first' => $_POST['first'], ':last' => $_POST['last'], ':picture' => $_POST['picture'], ':aptNum' => $_POST['aptNum'], ':rent' => $_POST['rent'], ':latePayments' => $_POST['latePayments'], ':dateIn' => $_POST['dateIn'], ':dateOut' => $_POST['dateOut'], ':id' => $id));
+        $aptTenantCount = $this->pdo->query('SELECT COUNT(*) as count FROM tenant WHERE aptNum = "'.$_POST['aptNum'].'"');
+        $count = $aptTenantCount->fetch();
+        $setNumTenants = $this->pdo->prepare('UPDATE apartment
+        SET numTenants='.$count['count'].' WHERE aptNum=:aptNum;');
+        $setNumTenants->execute([':aptNum'=>$_POST['aptNum']]);
     }
 
     public function showPreview(){
@@ -161,6 +193,12 @@ class tenantDB {
         $this->create();
         $sql = 'DELETE FROM tenant 
         WHERE tenantID=?;';
+        $aptTenantCount = $this->pdo->query('SELECT aptNum, COUNT(*) as count FROM tenant WHERE aptNum = (SELECT aptNum FROM tenant WHERE tenantID = '.$id.');');
+        $info = $aptTenantCount->fetch();
+        $count = $info['count']-1;
+        $setNumTenants = $this->pdo->prepare('UPDATE apartment
+        SET numTenants='.$count.' WHERE aptNum=:aptNum;');
+        $setNumTenants->execute([':aptNum'=>$info['aptNum']]);
 
         $delete = $this->pdo->prepare($sql);
         $delete->execute([$id]);

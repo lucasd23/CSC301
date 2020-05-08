@@ -1,5 +1,6 @@
 <?php
 session_name('signIn');
+session_start();
 if(!isset($_SESSION['uid'])) header('Location: index.php');
 
 if(!isset($_GET['id'])){
